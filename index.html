@@ -26,7 +26,7 @@
     pmremGenerator.compileEquirectangularShader();
 
     new RGBELoader()
-      .load('./mezcaleria.hdr', function (texture) {
+      .load('./stierberg_sunrise_4k.hdr', function (texture) {
         const envMap = pmremGenerator.fromEquirectangular(texture).texture;
         scene.environment = envMap;
         scene.background = envMap;
