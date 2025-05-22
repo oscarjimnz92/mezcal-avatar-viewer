@@ -30,8 +30,12 @@
     loader.load(
       './avatar.glb',
       function (gltf) {
-        scene.add(gltf.scene);
-        gltf.scene.rotation.y = Math.PI;
+        const model = gltf.scene;
+        // ajustes visuales
+        model.rotation.y = Math.PI;       // gira 180°
+        model.scale.set(1.5, 1.5, 1.5);   // lo agranda 1.5x
+        model.position.set(0, -2, 0);   // lo baja en el eje Y
+        scene.add(model);
         camera.position.z = 2;
         animate();
       },
