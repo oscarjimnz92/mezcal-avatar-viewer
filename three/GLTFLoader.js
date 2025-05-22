@@ -1,6 +1,4 @@
-import * as THREE from '../three.module.js';
-
-import { toTrianglesDrawMode } from '../utils/BufferGeometryUtils.js';
+import * as THREE from './three.module.js';
 
 class GLTFLoader extends THREE.Loader {
 
