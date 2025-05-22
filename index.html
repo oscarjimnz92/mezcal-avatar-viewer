@@ -9,12 +9,14 @@
   </style>
 </head>
 <body>
-  <script type="module">
-    import * as THREE from 'https://cdn.skypack.dev/three@0.132.2';
-    import { GLTFLoader } from 'https://cdn.skypack.dev/three/examples/jsm/loaders/GLTFLoader.js';
+  <script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.150.1/examples/js/loaders/GLTFLoader.js"></script>
 
+  <script>
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(
+      75, window.innerWidth / window.innerHeight, 0.1, 1000
+    );
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
@@ -23,9 +25,9 @@
     light.position.set(0, 1, 0);
     scene.add(light);
 
-    const loader = new GLTFLoader();
+    const loader = new THREE.GLTFLoader();
     loader.load(
-      'https://models.readyplayer.me/682c4d670c7e83e9b194386e.glb', // tu avatar GLB
+      'avatar.glb', // ✅ modelo local
       function (gltf) {
         scene.add(gltf.scene);
         gltf.scene.rotation.y = Math.PI;
@@ -34,7 +36,7 @@
       },
       undefined,
       function (error) {
-        console.error(error);
+        console.error('Error al cargar el modelo:', error);
       }
     );
 
