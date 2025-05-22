@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Mezcal Avatar Viewer</title>
-    <style>
-      body { margin: 0; overflow: hidden; }
-      canvas { display: block; }
-    </style>
-  </head>
-  <body>
-    <script type="module">
-      import * as THREE from 'https://unpkg.com/three@0.150.1/build/three.module.js';
-      import { GLTFLoader } from 'https://unpkg.com/three@0.150.1/examples/jsm/loaders/GLTFLoader.js';
+<head>
+  <meta charset="UTF-8">
+  <title>Mezcal Avatar Viewer</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.150.1/build/three.module.js';
+    import { GLTFLoader } from 'https://unpkg.com/three@0.150.1/examples/jsm/loaders/GLTFLoader.js';
 
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      document.body.appendChild(renderer.domElement);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75, window.innerWidth / window.innerHeight, 0.1, 1000
+    );
 
-      const light = new THREE.HemisphereLight(0xffffff, 0x444444);
-      light.position.set(0, 1, 0);
-      scene.add(light);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
 
-      const loader = new GLTFLoader();
-      loader.load(
-        'avatar.glb', // modelo local
-        function (gltf) {
-          scene.add(gltf.scene);
-          gltf.scene.rotation.y = Math.PI;
-          camera.position.z = 2;
-          animate();
-        },
-        undefined,
-        function (error) {
-          console.error('Error al cargar el modelo:', error);
-        }
-      );
+    const light = new THREE.HemisphereLight(0xffffff, 0x444444);
+    light.position.set(0, 1, 0);
+    scene.add(light);
 
-      function animate() {
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
+    const loader = new GLTFLoader();
+    loader.load(
+      './avatar.glb', // Ruta local relativa al archivo index.html
+      function (gltf) {
+        scene.add(gltf.scene);
+        gltf.scene.rotation.y = Math.PI;
+        camera.position.z = 2;
+        animate();
+      },
+      undefined,
+      function (error) {
+        console.error('Error al cargar el modelo:', error);
       }
+    );
 
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      });
-    </script>
-  </body>
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
 </html>
